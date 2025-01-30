@@ -33,7 +33,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-3
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -61,7 +61,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-3
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Setup kubectl
         uses: azure/setup-kubectl@v1
@@ -70,7 +70,7 @@ jobs:
 
       - name: Update kubeconfig
         run: |
-          aws eks update-kubeconfig --name exciting-rock-pumpkin --region ap-northeast-3
+          aws eks update-kubeconfig --name exciting-rock-pumpkin --region ${{ secrets.AWS_REGION }}
 
       - name: Verify kubectl connection
         run: kubectl get nodes
