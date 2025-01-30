@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: my-webapp
-        image: your-account-id.dkr.ecr.your-region.amazonaws.com/my-webapp:latest
+        image: 741448935198.dkr.ecr.ap-northeast-3.amazonaws.com/my-webapp:latest
         ports:
         - containerPort: 8080
