@@ -72,6 +72,9 @@ jobs:
         run: |
           aws eks update-kubeconfig --name exciting-rock-pumpkin --region ap-northeast-3
 
+      - name: Verify kubectl connection
+        run: kubectl get nodes
+
       - name: Deploy to EKS
         run: |
           kubectl set image deployment/my-webapp my-webapp=${{ steps.build.outputs.ECR_REGISTRY }}/my-webapp:${{ github.sha }}
