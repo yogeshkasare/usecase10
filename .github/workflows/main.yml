@@ -21,3 +21,9 @@ jobs:
 
       - name: Build with Maven
         run: mvn package
+
+      - name: Upload .war file
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-webapp-war
+          path: target/*.war
