@@ -63,15 +63,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy to ECS
+      - name: Apply deployment.yaml
+        run: kubectl apply -f deployment.yaml --validate=false
+
+      - name: Apply service.yaml
+        run: kubectl apply -f service.yaml --validate=false
+
+      - name: Update ECS service
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: yogeshecrrepo
           IMAGE_TAG: ${{ github.sha }}
           ECS_CLUSTER: devcluster11
           ECS_SERVICE: nginx-service
-          ECS_TASK_DEFINITION: nginx-task
         run: |
-          # Apply the deployment and service YAML files
-          kubectl apply -f deployment.yaml
-          kubectl apply -f service.yaml
+          aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
